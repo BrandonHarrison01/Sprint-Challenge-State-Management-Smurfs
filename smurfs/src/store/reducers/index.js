@@ -15,6 +15,13 @@ export const reducer = (state = initialState, action) => {
                 fetching: true,
                 smurfs: []
             }
+        case FETCH_SMURF_SUCCESS:
+            return {
+                ...state,
+                error: '',
+                fetching: false,
+                smurfs: action.payload
+            }
         default:
             return state;
     }
