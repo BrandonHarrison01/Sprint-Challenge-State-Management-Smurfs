@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { fetchSmurfs } from '../store/actions'
 
 import Smurfs from './Smurfs'
+import AddSmurfForm from './AddSmurfForm'
 
 import "./App.css";
 
@@ -19,6 +20,7 @@ class App extends Component {
         {this.props.fetching && <h3>fetching data...</h3>}  
         {this.props.error && <h3>{this.props.error}</h3>}  
         <Smurfs smurfs={this.props.smurfs} />
+        <AddSmurfForm />
       </div>
     );
   }
