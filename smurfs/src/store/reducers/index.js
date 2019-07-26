@@ -22,6 +22,13 @@ export const reducer = (state = initialState, action) => {
                 fetching: false,
                 smurfs: action.payload
             }
+        case FETCH_SMURF_FAILURE:
+            return {
+                ...state,
+                error: action.payload,
+                fetching: false,
+                smurfs: []
+            }
         default:
             return state;
     }
