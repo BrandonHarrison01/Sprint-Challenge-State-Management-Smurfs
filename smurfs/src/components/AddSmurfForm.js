@@ -1,41 +1,62 @@
 import React from 'react'
-import { withFormik, Form, Field } from 'formik';
+import { connect } from 'react-redux'
 
-function AddSmurfForm() {
-    return(
-        <Form>
-            <Field 
-                type='text'
-                name='name' 
-                placeholder='Smurf Name' 
-            />
-            <Field 
-                type='number'
-                name='age' 
-                placeholder='Smurf Age' 
-            />
-            <Field 
-                type='text'
-                name='height' 
-                placeholder='Smurf Height' 
-            />
-            <button type='submit'>Add Smurf!</button>
-        </Form>
-    )
+import { addSmurf } from '../store/actions'
+
+class AddSmurfForm extends React.Component {
+    state = {
+        name: '',
+        age: '',
+        height: '',
+    }
+
+    changeHandler = e => {
+      e.preventDefault();
+      this.setState({
+        [e.target.name]: e.target.value
+      })
+    }
+
+    addNewSmurf = e => {
+        e.preventDefault();
+        this.props.addSmurf(this.state)
+    }
+
+    render() {
+        return(
+            <form onSubmit={this.addNewSmurf}>
+                <input 
+                    type='text'
+                    name='name' 
+                    value={this.state.name}
+                    onChange={this.changeHandler}
+                    placeholder='Smurf Name' 
+                />
+                <input 
+                    type='text'
+                    name='age' 
+                    value={this.state.age}
+                    onChange={this.changeHandler}
+                    placeholder='Smurf Age' 
+                />
+                <input 
+                    type='text'
+                    name='height' 
+                    value={this.state.height}
+                    onChange={this.changeHandler}
+                    placeholder='Smurf Height' 
+                />
+                <button>Add Smurf!</button>
+            </form>
+        )
+    }
 }
 
-const FormikAddSmurfForm = withFormik({
-    mapPropsToValues() {
-        return {
-            name: '',
-            age: '',
-            height: ''
-        }
-    },
+const mapStateToProps = state => (
+    console.log('form mstp', state)
+)
 
-    handleSubmit(values) {
-        console.log('formik', values)
-    }
-})(AddSmurfForm)
-
-export default FormikAddSmurfForm
+export default connect(
+    mapStateToProps,
+    { addSmurf }
+)(AddSmurfForm)
